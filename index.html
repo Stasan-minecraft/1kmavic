@@ -18,7 +18,7 @@
       --text-main: #f0f9ff;
       --text-muted: #94a3b8;
       
-      --glass-bg: rgba(15, 23, 42, 0.6);
+      --glass-bg: rgba(15, 23, 42, 0.7);
       --glass-border: rgba(255, 255, 255, 0.08);
       --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       
@@ -33,17 +33,17 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 15% 50%, rgba(0, 87, 183, 0.15), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(255, 213, 0, 0.1), transparent 25%);
+        radial-gradient(circle at 50% 0%, rgba(0, 87, 183, 0.15), transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(255, 213, 0, 0.05), transparent 50%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
-      position: relative;
+      align-items: center;
+      padding-top: 40px;
     }
 
-    /* Анімований фоновий шум */
+    /* Анімований шум */
     body::before {
       content: "";
       position: fixed;
@@ -53,28 +53,10 @@
       z-index: -1;
     }
 
-    /* Світловий ефект */
-    .glow-spot {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(0,87,183,0.2) 0%, transparent 70%);
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: -2;
-      animation: pulseLight 8s infinite alternate;
-    }
-
-    @keyframes pulseLight {
-      0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-      100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
-    }
-
     .page-shell {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px 60px;
+      width: 100%;
+      max-width: 600px;
+      padding: 0 20px 40px;
       position: relative;
       z-index: 1;
     }
@@ -82,7 +64,7 @@
     /* HEADER */
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .badge-container {
@@ -96,7 +78,7 @@
       border: 1px solid rgba(0, 87, 183, 0.4);
       padding: 6px 16px;
       border-radius: 50px;
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.15em;
       color: #60a5fa;
@@ -108,11 +90,11 @@
     }
 
     .live-dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: var(--accent-red);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent-red);
+      box-shadow: 0 0 8px var(--accent-red);
       animation: blink 1.5s infinite;
     }
 
@@ -120,15 +102,11 @@
 
     h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(36px, 6vw, 64px);
+      font-size: clamp(32px, 5vw, 48px);
       margin: 0;
       line-height: 1.1;
       text-transform: uppercase;
       letter-spacing: -0.02em;
-      background: linear-gradient(180deg, #fff, #94a3b8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     h1 .accent {
@@ -138,76 +116,10 @@
     }
 
     .subtitle {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--text-muted);
-      max-width: 600px;
-      margin: 16px auto 0;
-      line-height: 1.6;
-    }
-
-    .subtitle strong { color: #fff; }
-
-    /* PROGRESS BAR SECTION */
-    .progress-section {
-      margin: 30px 0 50px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      backdrop-filter: blur(12px);
-      box-shadow: var(--glass-shadow);
-    }
-
-    .progress-labels {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .current-sum { color: var(--accent-yellow); font-size: 18px; font-weight: 700; text-shadow: 0 0 10px rgba(255,213,0,0.4); }
-    .goal-sum { color: var(--text-main); }
-
-    .progress-track {
-      height: 12px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .progress-fill {
-      height: 100%;
-      /* Для демо встановив 15%, змінити через JS */
-      width: 15%; 
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-yellow));
-      border-radius: 10px;
-      position: relative;
-      box-shadow: 0 0 20px rgba(255, 213, 0, 0.4);
-    }
-
-    .progress-fill::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: translateX(-100%);
-      animation: shimmer 2s infinite;
-    }
-
-    @keyframes shimmer { 100% { transform: translateX(100%); } }
-
-    /* MAIN GRID */
-    .grid-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 768px) {
-      .grid-layout { grid-template-columns: 1fr; }
+      margin: 12px auto 0;
+      line-height: 1.5;
     }
 
     /* CARDS */
@@ -215,59 +127,33 @@
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
-      padding: 30px;
-      backdrop-filter: blur(12px);
+      padding: 28px;
+      backdrop-filter: blur(16px);
       box-shadow: var(--glass-shadow);
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-4px);
-    }
-
-    .card h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 18px;
-      margin: 0 0 20px;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card h2::before {
-      content: "";
-      width: 4px;
-      height: 18px;
-      background: var(--accent-yellow);
-      display: block;
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--accent-yellow);
+      margin-bottom: 24px;
     }
 
     /* Stats Chips */
-    .stats-chips {
+    .stats-row {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       margin-bottom: 24px;
     }
 
     .chip {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.1);
-      padding: 8px 14px;
+      padding: 10px 18px;
       border-radius: var(--radius-sm);
-      font-size: 13px;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      flex: 1;
     }
 
-    .chip span:first-child { color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
-    .chip span:last-child { color: #fff; font-weight: 700; font-family: 'Orbitron', sans-serif; }
+    .chip span:first-child { color: var(--text-muted); font-size: 11px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .chip span:last-child { color: #fff; font-weight: 700; font-family: 'Orbitron', sans-serif; font-size: 15px; }
 
     /* DONATE BUTTON */
     .donate-btn {
@@ -289,160 +175,135 @@
       overflow: hidden;
       transition: all 0.3s;
       box-shadow: 0 10px 30px rgba(0, 87, 183, 0.4);
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-    }
-
-    .donate-btn::before {
-      content: "";
-      position: absolute;
-      top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: 0.5s;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .donate-btn:hover {
       transform: scale(1.02);
-      box-shadow: 0 15px 40px rgba(0, 87, 183, 0.6);
-      background: linear-gradient(135deg, var(--accent-blue) 0%, #003377 100%);
+      box-shadow: 0 15px 50px rgba(0, 87, 183, 0.6);
     }
-
-    .donate-btn:hover::before {
-      left: 100%;
+    
+    .donate-btn::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+        background-size: 200% 200%;
+        animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+        0% { background-position: 200% 50%; }
+        100% { background-position: -200% 50%; }
     }
 
     .donate-helper {
-      text-align: center;
       font-size: 12px;
       color: var(--text-muted);
-      margin-top: 12px;
+      margin-top: 14px;
+      text-align: center;
     }
 
-    /* WARNING BOX */
-    .warning-box {
-      margin-top: 24px;
-      padding: 16px;
-      background: rgba(127, 29, 29, 0.15);
-      border: 1px solid rgba(248, 113, 113, 0.3);
-      border-radius: var(--radius-sm);
-      color: #fecaca;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .warning-title {
-      color: var(--accent-red);
-      font-weight: 800;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    .warning-title span { animation: blink 2s infinite; }
-
-    /* HEROES LIST */
-    .heroes-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    /* Scrollbar stylization */
-    .heroes-list::-webkit-scrollbar { width: 4px; }
-    .heroes-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-
-    .hero-item {
-      padding: 6px 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 50px;
-      font-size: 12px;
-      color: #e2e8f0;
-    }
-
-    /* HASHTAG SECTION */
-    .hashtag-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(0,0,0,0.3);
-      padding: 12px;
-      border-radius: var(--radius-sm);
-      margin-top: 10px;
-    }
-
-    .hashtag {
+    /* WALL HEROES */
+    .wall-title {
       font-family: 'Orbitron', sans-serif;
-      color: var(--accent-yellow);
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .copy-btn {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 16px;
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
-    .copy-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-
-    .copy-msg {
-      font-size: 11px;
-      color: #4ade80;
-      margin-top: 6px;
+    .wall-title::before {
+      content: "";
+      width: 4px;
       height: 16px;
-      opacity: 0;
-      transition: opacity 0.3s;
+      background: var(--accent-yellow);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--accent-yellow);
     }
 
-    .copy-msg.show { opacity: 1; }
+    .wall-container {
+      min-height: 120px;
+      background: rgba(0,0,0,0.3);
+      border-radius: var(--radius-sm);
+      border: 1px dashed rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Ефект сканування для пустий стіни */
+    .wall-container::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 213, 0, 0.5), transparent);
+        animation: scan 3s infinite linear;
+    }
+    
+    @keyframes scan {
+        0% { top: 0; opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+
+    .wall-empty-text {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+    
+    .wall-instruction {
+        font-size: 11px;
+        color: #60a5fa;
+        background: rgba(0, 87, 183, 0.1);
+        padding: 4px 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 87, 183, 0.3);
+    }
 
     /* FOOTER */
     footer {
       text-align: center;
-      padding: 30px;
-      font-size: 12px;
+      padding: 24px;
+      font-size: 11px;
       color: rgba(255,255,255,0.3);
       margin-top: auto;
     }
-    
-    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
-    
-    /* Decoration Circle */
-    .deco-circle {
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border: 1px dashed rgba(255,255,255,0.1);
-        border-radius: 50%;
-        top: 10%;
-        right: -100px;
-        z-index: -1;
-        animation: rotate 60s linear infinite;
+
+    /* Hashtag button */
+    .hash-btn {
+        margin-top: 15px;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.15);
+        color: var(--accent-yellow);
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: 'Orbitron', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.2s;
     }
     
-    @keyframes rotate { 100% { transform: rotate(360deg); } }
+    .hash-btn:hover {
+        border-color: var(--accent-yellow);
+        background: rgba(255, 213, 0, 0.05);
+    }
 
   </style>
 </head>
 <body>
-
-  <div class="glow-spot"></div>
-  <div class="deco-circle"></div>
 
   <div class="page-shell">
     <header>
@@ -454,128 +315,67 @@
       </div>
       
       <h1><span class="accent">1kmavic</span></h1>
-      <h2 style="font-family: 'Orbitron'; font-weight: 400; font-size: 20px; color: #cbd5e1; margin-top: 10px;">
-        ОПЕРАЦІЯ: 1000 MAVIC 4 PRO
-      </h2>
-      
       <p class="subtitle">
-        Забезпечуємо очі для ЗСУ. Ціль — зібрати на <strong>1000 дронів</strong>.<br>
-        Кожен дрон (98 199 ₴) — це врятовані життя наших хлопців та знищені вороги.
+        Ціль — <strong>1000 дронів</strong> для ЗСУ.<br>
+        Твій донат — це очі для наших захисників.
       </p>
     </header>
 
-    <div class="progress-section">
-      <div class="progress-labels">
-        <span class="current-sum">14 729 850 ₴</span> <span class="goal-sum">98 199 000 ₴</span>
+    <div class="card">
+      <div class="stats-row">
+        <div class="chip">
+          <span>Ціль</span>
+          <span>1000 шт.</span>
+        </div>
+        <div class="chip">
+          <span>Ціна дрона</span>
+          <span>98 199 ₴</span>
+        </div>
       </div>
-      <div class="progress-track">
-        <div class="progress-fill" style="width: 15%;"></div> </div>
-      <div style="text-align: right; font-size: 11px; color: var(--text-muted); margin-top: 8px;">
-        Оновлюється автоматично
-      </div>
+
+      <a href="https://send.monobank.ua/jar/4TvvbXkxfo" target="_blank" class="donate-btn">
+        ДОНАТ
+      </a>
+      <div class="donate-helper">Безпечний переказ через Monobank</div>
     </div>
 
-    <div class="grid-layout">
-      <div class="card">
-        <h2>ДОЛУЧИТИСЯ ДО ЗБОРУ</h2>
-        
-        <div class="stats-chips">
-          <div class="chip">
-            <span>Ціль</span>
-            <span>1000 шт.</span>
-          </div>
-          <div class="chip">
-            <span>Вартість од.</span>
-            <span>98 199 ₴</span>
-          </div>
-        </div>
-
-        <a href="https://send.monobank.ua/jar/4TvvbXkxfo" target="_blank" class="donate-btn">
-          ВІДКРИТИ МОНОБАНКУ
-        </a>
-        <div class="donate-helper">Безпечний переказ через Monobank</div>
-
-        <div class="warning-box">
-          <div class="warning-title"><span>●</span> УВАГА</div>
-          Щоб потрапити на <strong>Стіну героїв</strong>, при донаті вкажіть у коментарі своє <strong>ім'я або нік</strong>.<br><br>
-          <em style="color:rgba(255,255,255,0.5)">Ця сторінка самознищиться, коли ми досягнемо 100% цілі.</em>
+    <div class="card" style="padding-top: 20px; padding-bottom: 20px;">
+      <div class="wall-title">СТІНА ГЕРОЇВ</div>
+      
+      <div class="wall-container">
+        <div class="wall-empty-text">Список наразі оновлюється...</div>
+        <div class="wall-instruction">
+          Вкажи <strong>нік/ім'я</strong> в коментарі до донату, щоб з'явитись тут.
         </div>
       </div>
 
-      <div class="card">
-        <h2>СТІНА ГЕРОЇВ</h2>
-        <ul class="heroes-list" id="heroes-list">
-          <li style="color: var(--text-muted); font-size: 12px;">Завантаження списку...</li>
-        </ul>
-        
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-          <h2>ІНФОРМАЦІЙНИЙ ФРОНТ</h2>
-          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
-            Зніми тікток/рілс про цей збір, додай хештег — допоможи алгоритмам знайти донаторів.
-          </p>
-          <div class="hashtag-container">
-            <span class="hashtag">#1kmavic</span>
-            <button class="copy-btn" id="copy-btn">Скопіювати</button>
-          </div>
-          <div class="copy-msg" id="copy-msg">Скопійовано в буфер обміну!</div>
-        </div>
+      <div style="text-align: center;">
+        <button class="hash-btn" id="copy-btn">
+          #1kmavic <span>📋</span>
+        </button>
       </div>
     </div>
 
   </div>
 
   <footer>
-    <p>1kmavic — Народний збір для ЗСУ.</p>
     <p>Слава Україні! 🇺🇦</p>
   </footer>
 
   <script>
-    // Імітація списку героїв (можна підключити реальне API пізніше)
-    const heroes = [
-      "Олександр К.", "Марія", "Anonim", "Котик ЗСУ", "IT Battalion", 
-      "Сергій Притула (фан)", "На дрон", "За Харків", "Київ на зв'язку",
-      "Олексій Г.", "Sensar Support", "Pan Roman", "Dark.Elf", "User_777",
-      "Слава Нації", "Від бабусі Галі", "Макс", "Андрій Т.", "Вікторія",
-      "На помсту", "Дніпро", "Одеса Мама", "За Херсон"
-    ];
-
-    const heroesList = document.getElementById('heroes-list');
-    
-    // Функція рендеру з ефектом появи
-    function renderHeroes() {
-      heroesList.innerHTML = '';
-      heroes.forEach((name, index) => {
-        const li = document.createElement('li');
-        li.className = 'hero-item';
-        li.textContent = name;
-        li.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`;
-        li.style.opacity = '0'; // початковий стан для анімації
-        heroesList.appendChild(li);
-      });
-    }
-
-    // Додаємо CSS keyframes для JS анімації
-    const styleSheet = document.createElement("style");
-    styleSheet.innerText = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-    `;
-    document.head.appendChild(styleSheet);
-
-    renderHeroes();
-
-    // Логіка копіювання
     const copyBtn = document.getElementById('copy-btn');
-    const copyMsg = document.getElementById('copy-msg');
-
+    
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText('#1kmavic').then(() => {
-        copyMsg.classList.add('show');
-        setTimeout(() => copyMsg.classList.remove('show'), 2000);
-      }).catch(err => {
-        console.error('Не вдалося скопіювати', err);
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = "Скопійовано! ✅";
+        copyBtn.style.borderColor = "#4ade80";
+        copyBtn.style.color = "#4ade80";
+        setTimeout(() => {
+            copyBtn.innerHTML = originalHTML;
+            copyBtn.style.borderColor = "rgba(255,255,255,0.15)";
+            copyBtn.style.color = "#ffd500";
+        }, 2000);
       });
     });
   </script>
