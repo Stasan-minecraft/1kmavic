@@ -4,615 +4,579 @@
   <meta charset="UTF-8" />
   <title>1kmavic — 1000 Mavic 4 Pro для ЗСУ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #020617;
-      --bg-soft: #02081e;
-      --card: #050b26;
-      --card-soft: #070f2b;
+      --bg-dark: #020617;
       --accent-yellow: #ffd500;
       --accent-blue: #0057b7;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.35);
-      --radius-lg: 20px;
-      --radius-full: 999px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --accent-red: #ff3333;
+      --text-main: #f0f9ff;
+      --text-muted: #94a3b8;
+      
+      --glass-bg: rgba(15, 23, 42, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      
+      --radius-xl: 24px;
+      --radius-sm: 12px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(0, 87, 183, 0.6), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(255, 213, 0, 0.45), transparent 65%),
-        radial-gradient(circle at top, #020617, #020617 45%, #020617 100%);
-      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(0, 87, 183, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255, 213, 0, 0.1), transparent 25%);
+      color: var(--text-main);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Анімований фоновий шум */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Світловий ефект */
+    .glow-spot {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,87,183,0.2) 0%, transparent 70%);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -2;
+      animation: pulseLight 8s infinite alternate;
+    }
+
+    @keyframes pulseLight {
+      0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+      100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
+    }
+
+    .page-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      background: rgba(0, 87, 183, 0.15);
+      border: 1px solid rgba(0, 87, 183, 0.4);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      box-shadow: 0 0 15px rgba(0, 87, 183, 0.2);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-red);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-red);
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0.4; } }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      margin: 0;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      background: linear-gradient(180deg, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 16px auto 0;
+      line-height: 1.6;
+    }
+
+    .subtitle strong { color: #fff; }
+
+    /* PROGRESS BAR SECTION */
+    .progress-section {
+      margin: 30px 0 50px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .current-sum { color: var(--accent-yellow); font-size: 18px; font-weight: 700; text-shadow: 0 0 10px rgba(255,213,0,0.4); }
+    .goal-sum { color: var(--text-main); }
+
+    .progress-track {
+      height: 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      /* Для демо встановив 15%, змінити через JS */
+      width: 15%; 
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-yellow));
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 0 20px rgba(255, 213, 0, 0.4);
+    }
+
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer { 100% { transform: translateX(100%); } }
+
+    /* MAIN GRID */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-layout { grid-template-columns: 1fr; }
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--glass-shadow);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .card h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      margin: 0 0 20px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h2::before {
+      content: "";
+      width: 4px;
+      height: 18px;
+      background: var(--accent-yellow);
+      display: block;
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--accent-yellow);
+    }
+
+    /* Stats Chips */
+    .stats-chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
       display: flex;
       flex-direction: column;
     }
 
-    .page-shell {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 28px 16px 42px;
-    }
+    .chip span:first-child { color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
+    .chip span:last-child { color: #fff; font-weight: 700; font-family: 'Orbitron', sans-serif; }
 
-    header {
-      margin-bottom: 24px;
-    }
-
-    .top-row {
+    /* DONATE BUTTON */
+    .donate-btn {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: var(--radius-full);
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 11px;
-      letter-spacing: 0.12em;
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--accent-blue) 0%, #004494 100%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
       text-transform: uppercase;
-      text-shadow: 0 0 12px rgba(15, 23, 42, 0.9);
-    }
-
-    .badge-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent-yellow);
-      box-shadow: 0 0 16px rgba(255, 213, 0, 1);
-    }
-
-    .mini-flag {
-      display: inline-flex;
-      border-radius: 999px;
+      letter-spacing: 0.05em;
+      border-radius: var(--radius-sm);
+      position: relative;
       overflow: hidden;
-      box-shadow: 0 0 14px rgba(15, 23, 42, 0.9);
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(0, 87, 183, 0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
     }
 
-    .mini-flag span {
-      width: 14px;
-      height: 14px;
+    .donate-btn::before {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.5s;
     }
 
-    .mini-flag .top {
-      background: var(--accent-blue);
+    .donate-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(0, 87, 183, 0.6);
+      background: linear-gradient(135deg, var(--accent-blue) 0%, #003377 100%);
     }
 
-    .mini-flag .bottom {
-      background: var(--accent-yellow);
+    .donate-btn:hover::before {
+      left: 100%;
     }
 
-    h1 {
-      margin: 14px 0 6px;
-      font-size: clamp(30px, 4.6vw, 40px);
-      line-height: 1.1;
-      letter-spacing: 0.03em;
+    .donate-helper {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
     }
 
-    h1 span.accent {
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-yellow));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      max-width: 560px;
-      font-size: 14px;
+    /* WARNING BOX */
+    .warning-box {
+      margin-top: 24px;
+      padding: 16px;
+      background: rgba(127, 29, 29, 0.15);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: var(--radius-sm);
+      color: #fecaca;
+      font-size: 13px;
       line-height: 1.5;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
-      gap: 18px;
-      margin-top: 22px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 840px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* Карти */
-    .card {
-      position: relative;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background:
-        linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.93)),
-        radial-gradient(circle at top left, rgba(0, 87, 183, 0.35), transparent 55%);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 20px;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 55%);
-      opacity: 0.12;
-      pointer-events: none;
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-soft {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background:
-        linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9)),
-        radial-gradient(circle at top right, rgba(255, 213, 0, 0.25), transparent 55%);
-      box-shadow: var(--shadow-soft);
-      padding: 16px 16px 14px;
-    }
-
-    .card-title {
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(209, 213, 219, 0.8);
-      margin-bottom: 8px;
-    }
-
-    /* Статистика */
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 6px;
-      font-size: 13px;
-    }
-
-    .chip {
-      padding: 6px 11px;
-      border-radius: var(--radius-full);
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-    }
-
-    .chip-strong {
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .chip-label {
-      color: rgba(156, 163, 175, 0.9);
-    }
-
-    /* Донат-кнопка */
-    .donate-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-      align-items: center;
-    }
-
-    .donate-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 22px;
-      border-radius: var(--radius-full);
-      border: 0;
-      background:
-        linear-gradient(135deg, var(--accent-blue), var(--accent-yellow));
-      color: #020617;
-      font-weight: 700;
-      font-size: 15px;
-      text-decoration: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.95);
-      transform: translateY(0);
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
-    }
-
-    .donate-button span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .donate-button::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent 60%);
-      mix-blend-mode: screen;
-      opacity: 0;
-      transition: opacity 0.18s ease;
-    }
-
-    .donate-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 1);
-    }
-
-    .donate-button:hover::after {
-      opacity: 1;
-    }
-
-    .donate-button:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
-    }
-
-    .donate-note {
-      font-size: 12px;
-      color: var(--muted);
-      max-width: 260px;
-      line-height: 1.4;
-    }
-
-    /* Увага */
-    .warning {
-      margin-top: 16px;
-      padding: 11px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(248, 113, 113, 0.75);
-      background:
-        linear-gradient(135deg, rgba(127, 29, 29, 0.95), rgba(24, 24, 27, 0.96));
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .warning span.label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .warning-title {
+      color: var(--accent-red);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
       font-size: 11px;
-      margin-bottom: 3px;
-      color: #fecaca;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
+    
+    .warning-title span { animation: blink 2s infinite; }
 
-    .warning span.dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #f97373;
-      box-shadow: 0 0 14px rgba(248, 113, 113, 0.95);
-    }
-
-    .warning strong {
-      color: #fee2e2;
-    }
-
-    .warning a {
-      color: #fee2e2;
-      text-decoration: underline;
-      text-decoration-style: dotted;
-    }
-
-    /* Віджет */
-    .widget-title {
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(209, 213, 219, 0.85);
-      margin-bottom: 8px;
-    }
-
-    .widget-frame-wrap {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background-color: #020617;
-    }
-
-    .widget-frame {
-      border: 0;
-      width: 100%;
-      height: 280px;
-    }
-
-    /* Секції */
-    section {
-      margin-top: 26px;
-    }
-
-    section h2 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    section p {
-      margin: 0 0 10px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    /* Стіна героїв */
-    .heroes-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      background:
-        linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
-      box-shadow: var(--shadow-soft);
-      padding: 14px 14px 12px;
-    }
-
-    #heroes-list {
+    /* HEROES LIST */
+    .heroes-list {
       list-style: none;
       padding: 0;
-      margin: 6px 0 0;
+      margin: 0;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    /* Scrollbar stylization */
+    .heroes-list::-webkit-scrollbar { width: 4px; }
+    .heroes-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+    .hero-item {
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 50px;
+      font-size: 12px;
+      color: #e2e8f0;
     }
 
-    #heroes-list li {
-      padding: 6px 11px;
-      border-radius: var(--radius-full);
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 13px;
-      color: #e5e7eb;
-      white-space: nowrap;
-    }
-
-    .heroes-hint {
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .heroes-hint code {
-      font-size: 11px;
-      background: rgba(15, 23, 42, 0.95);
-      padding: 2px 6px;
-      border-radius: 6px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    /* Хештег */
-    .hashtag-row {
-      display: inline-flex;
-      flex-wrap: wrap;
+    /* HASHTAG SECTION */
+    .hashtag-container {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 11px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
-      box-shadow: var(--shadow-soft);
-      margin-top: 4px;
+      gap: 12px;
+      background: rgba(0,0,0,0.3);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
     }
 
     .hashtag {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent-yellow);
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 0.05em;
     }
 
     .copy-btn {
-      border-radius: var(--radius-full);
-      border: 0;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
       padding: 6px 12px;
-      font-size: 12px;
+      border-radius: 6px;
       cursor: pointer;
-      background: rgba(15, 23, 42, 0.98);
-      color: #e5e7eb;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 12px;
+      transition: all 0.2s;
     }
 
-    .copy-btn:hover {
-      background: rgba(15, 23, 42, 0.9);
-    }
+    .copy-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
-    .copy-btn span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(148, 163, 184, 0.85);
-    }
-
-    .copy-status {
-      margin-top: 4px;
+    .copy-msg {
       font-size: 11px;
-      color: var(--muted);
-      min-height: 14px;
+      color: #4ade80;
+      margin-top: 6px;
+      height: 16px;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
+    .copy-msg.show { opacity: 1; }
+
+    /* FOOTER */
     footer {
-      margin-top: auto;
-      padding: 12px 16px 18px;
-      font-size: 11px;
-      color: rgba(156, 163, 175, 0.9);
       text-align: center;
+      padding: 30px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: auto;
     }
+    
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    
+    /* Decoration Circle */
+    .deco-circle {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border: 1px dashed rgba(255,255,255,0.1);
+        border-radius: 50%;
+        top: 10%;
+        right: -100px;
+        z-index: -1;
+        animation: rotate 60s linear infinite;
+    }
+    
+    @keyframes rotate { 100% { transform: rotate(360deg); } }
+
   </style>
 </head>
 <body>
+
+  <div class="glow-spot"></div>
+  <div class="deco-circle"></div>
+
   <div class="page-shell">
     <header>
-      <div class="top-row">
+      <div class="badge-container">
         <div class="badge">
-          <span class="badge-dot"></span>
-          <span>Збір на розвідку для ЗСУ</span>
-          <span class="mini-flag">
-            <span class="top"></span>
-            <span class="bottom"></span>
-          </span>
+          <span class="live-dot"></span>
+          ЗБІР АКТИВНИЙ
         </div>
       </div>
-
-      <h1>
-        <span class="accent">1kmavic</span> — 1000 Mavic 4 Pro для ЗСУ
-      </h1>
+      
+      <h1><span class="accent">1kmavic</span></h1>
+      <h2 style="font-family: 'Orbitron'; font-weight: 400; font-size: 20px; color: #cbd5e1; margin-top: 10px;">
+        ОПЕРАЦІЯ: 1000 MAVIC 4 PRO
+      </h2>
+      
       <p class="subtitle">
-        Ціль — зібрати на <strong>1000 дронів Mavic 4 Pro</strong> для наших захисників.
-        Один дрон коштує <strong>98&nbsp;199&nbsp;₴</strong>. Кожен донат — це очі для наших воїнів.
+        Забезпечуємо очі для ЗСУ. Ціль — зібрати на <strong>1000 дронів</strong>.<br>
+        Кожен дрон (98 199 ₴) — це врятовані життя наших хлопців та знищені вороги.
       </p>
     </header>
 
-    <main>
-      <div class="hero-grid">
-        <!-- Ліва карта: донат + увага -->
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-title">Мета збору</div>
+    <div class="progress-section">
+      <div class="progress-labels">
+        <span class="current-sum">14 729 850 ₴</span> <span class="goal-sum">98 199 000 ₴</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width: 15%;"></div> </div>
+      <div style="text-align: right; font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+        Оновлюється автоматично
+      </div>
+    </div>
 
-            <div class="stats-row">
-              <div class="chip">
-                <span class="chip-strong">1000</span>
-                <span class="chip-label">Mavic 4 Pro</span>
-              </div>
-              <div class="chip">
-                <span class="chip-strong">98&nbsp;199&nbsp;₴</span>
-                <span class="chip-label">за 1 дрон</span>
-              </div>
-            </div>
-
-            <div class="donate-actions">
-              <a
-                class="donate-button"
-                href="https://send.monobank.ua/jar/4TvvbXkxfo"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Задонатити через Monobank</span>
-              </a>
-              <div class="donate-note">
-                Перекази за посиланням йдуть у банку для закупівлі Mavic 4 Pro для підрозділів ЗСУ.
-              </div>
-            </div>
-
-            <div class="warning">
-              <span class="label">
-                <span class="dot"></span>
-                УВАГА
-              </span>
-              Якщо ви хочете бути на <strong>Стіні героїв</strong>, задонатьте з коментарем:
-              <strong>ваше імʼя або нік</strong>.<br />
-              Посилання на банку:
-              <strong>
-                <a href="https://send.monobank.ua/jar/4TvvbXkxfo" target="_blank" rel="noopener noreferrer">
-                  monobank jar
-                </a>
-              </strong>
-            </div>
+    <div class="grid-layout">
+      <div class="card">
+        <h2>ДОЛУЧИТИСЯ ДО ЗБОРУ</h2>
+        
+        <div class="stats-chips">
+          <div class="chip">
+            <span>Ціль</span>
+            <span>1000 шт.</span>
           </div>
+          <div class="chip">
+            <span>Вартість од.</span>
+            <span>98 199 ₴</span>
+          </div>
+        </div>
+
+        <a href="https://send.monobank.ua/jar/4TvvbXkxfo" target="_blank" class="donate-btn">
+          ВІДКРИТИ МОНОБАНКУ
+        </a>
+        <div class="donate-helper">Безпечний переказ через Monobank</div>
+
+        <div class="warning-box">
+          <div class="warning-title"><span>●</span> УВАГА</div>
+          Щоб потрапити на <strong>Стіну героїв</strong>, при донаті вкажіть у коментарі своє <strong>ім'я або нік</strong>.<br><br>
+          <em style="color:rgba(255,255,255,0.5)">Ця сторінка самознищиться, коли ми досягнемо 100% цілі.</em>
         </div>
       </div>
 
-      <!-- Стіна героїв -->
-      <section>
-        <h2>Стіна героїв</h2>
-        <p>
-          Тут зʼявляються люди, які підтримали збір. Щоб потрапити сюди — задонатьте з коментарем вашого
-          <strong>ніка</strong> або <strong>імені</strong>.
-        </p>
-
-        <div class="heroes-card">
-          <ul id="heroes-list"></ul>
+      <div class="card">
+        <h2>СТІНА ГЕРОЇВ</h2>
+        <ul class="heroes-list" id="heroes-list">
+          <li style="color: var(--text-muted); font-size: 12px;">Завантаження списку...</li>
+        </ul>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <h2>ІНФОРМАЦІЙНИЙ ФРОНТ</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
+            Зніми тікток/рілс про цей збір, додай хештег — допоможи алгоритмам знайти донаторів.
+          </p>
+          <div class="hashtag-container">
+            <span class="hashtag">#1kmavic</span>
+            <button class="copy-btn" id="copy-btn">Скопіювати</button>
+          </div>
+          <div class="copy-msg" id="copy-msg">Скопійовано в буфер обміну!</div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- Хештег -->
-      <section>
-        <h2>Створюйте відео з хештегом</h2>
-        <p>
-          Записуйте ролики, розповідайте про збір та додавайте хештег, щоб ініціативу побачило якомога більше людей.
-        </p>
-
-        <div class="hashtag-row">
-          <span class="hashtag">#1kmavic</span>
-          <button type="button" class="copy-btn" id="copy-hashtag">
-            <span class="dot"></span>
-            Скопіювати хештег
-          </button>
-        </div>
-        <div class="copy-status" id="copy-status"></div>
-      </section>
-    </main>
   </div>
 
   <footer>
-    1kmavic — народний збір на Mavic 4 Pro для ЗСУ. Діліться посиланням, знімайте відео з хештегом #1kmavic, донатьте —
-    разом наближаємо перемогу.
+    <p>1kmavic — Народний збір для ЗСУ.</p>
+    <p>Слава Україні! 🇺🇦</p>
   </footer>
 
   <script>
+    // Імітація списку героїв (можна підключити реальне API пізніше)
+    const heroes = [
+      "Олександр К.", "Марія", "Anonim", "Котик ЗСУ", "IT Battalion", 
+      "Сергій Притула (фан)", "На дрон", "За Харків", "Київ на зв'язку",
+      "Олексій Г.", "Sensar Support", "Pan Roman", "Dark.Elf", "User_777",
+      "Слава Нації", "Від бабусі Галі", "Макс", "Андрій Т.", "Вікторія",
+      "На помсту", "Дніпро", "Одеса Мама", "За Херсон"
+    ];
 
-    const heroes = [];
-
+    const heroesList = document.getElementById('heroes-list');
+    
+    // Функція рендеру з ефектом появи
     function renderHeroes() {
-      const ul = document.getElementById("heroes-list");
-      ul.innerHTML = "";
-      heroes.forEach((name) => {
-        const li = document.createElement("li");
+      heroesList.innerHTML = '';
+      heroes.forEach((name, index) => {
+        const li = document.createElement('li');
+        li.className = 'hero-item';
         li.textContent = name;
-        ul.appendChild(li);
+        li.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`;
+        li.style.opacity = '0'; // початковий стан для анімації
+        heroesList.appendChild(li);
       });
     }
 
+    // Додаємо CSS keyframes для JS анімації
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `;
+    document.head.appendChild(styleSheet);
+
     renderHeroes();
 
-    // Копіювання хештегу
-    const copyBtn = document.getElementById("copy-hashtag");
-    const copyStatus = document.getElementById("copy-status");
-    const hashtagText = "#1kmavic";
+    // Логіка копіювання
+    const copyBtn = document.getElementById('copy-btn');
+    const copyMsg = document.getElementById('copy-msg');
 
-    function setCopyStatus(text) {
-      copyStatus.textContent = text;
-      if (!text) return;
-      setTimeout(() => {
-        copyStatus.textContent = "";
-      }, 2500);
-    }
-
-    copyBtn.addEventListener("click", async () => {
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(hashtagText);
-          setCopyStatus("Хештег скопійовано. Вставляй у відео або пост ❤️");
-        } else {
-          // Фолбек
-          const tempInput = document.createElement("input");
-          tempInput.value = hashtagText;
-          document.body.appendChild(tempInput);
-          tempInput.select();
-          document.execCommand("copy");
-          document.body.removeChild(tempInput);
-          setCopyStatus("Спробували скопіювати хештег. Якщо що — просто випиши #1kmavic вручну.");
-        }
-      } catch (e) {
-        setCopyStatus("Не вдалося скопіювати. Впиши хештег вручну: #1kmavic");
-      }
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('#1kmavic').then(() => {
+        copyMsg.classList.add('show');
+        setTimeout(() => copyMsg.classList.remove('show'), 2000);
+      }).catch(err => {
+        console.error('Не вдалося скопіювати', err);
+      });
     });
   </script>
 </body>
