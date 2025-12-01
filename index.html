@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>1kmavic — 1000 Mavic 4 Pro для ЗСУ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #02081e;
+      --card: #050b26;
+      --card-soft: #070f2b;
+      --accent-yellow: #ffd500;
+      --accent-blue: #0057b7;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius-lg: 20px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(0, 87, 183, 0.6), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(255, 213, 0, 0.45), transparent 65%),
+        radial-gradient(circle at top, #020617, #020617 45%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 16px 42px;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(15, 23, 42, 0.9);
+    }
+
+    .badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent-yellow);
+      box-shadow: 0 0 16px rgba(255, 213, 0, 1);
+    }
+
+    .mini-flag {
+      display: inline-flex;
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: 0 0 14px rgba(15, 23, 42, 0.9);
+    }
+
+    .mini-flag span {
+      width: 14px;
+      height: 14px;
+    }
+
+    .mini-flag .top {
+      background: var(--accent-blue);
+    }
+
+    .mini-flag .bottom {
+      background: var(--accent-yellow);
+    }
+
+    h1 {
+      margin: 14px 0 6px;
+      font-size: clamp(30px, 4.6vw, 40px);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+    }
+
+    h1 span.accent {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-yellow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+      gap: 18px;
+      margin-top: 22px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 840px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Карти */
+    .card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.93)),
+        radial-gradient(circle at top left, rgba(0, 87, 183, 0.35), transparent 55%);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 20px;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 55%);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-soft {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background:
+        linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9)),
+        radial-gradient(circle at top right, rgba(255, 213, 0, 0.25), transparent 55%);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 14px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(209, 213, 219, 0.8);
+      margin-bottom: 8px;
+    }
+
+    /* Статистика */
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    .chip {
+      padding: 6px 11px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .chip-strong {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .chip-label {
+      color: rgba(156, 163, 175, 0.9);
+    }
+
+    /* Донат-кнопка */
+    .donate-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+      align-items: center;
+    }
+
+    .donate-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      border: 0;
+      background:
+        linear-gradient(135deg, var(--accent-blue), var(--accent-yellow));
+      color: #020617;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.95);
+      transform: translateY(0);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .donate-button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .donate-button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .donate-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 1);
+    }
+
+    .donate-button:hover::after {
+      opacity: 1;
+    }
+
+    .donate-button:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+    }
+
+    .donate-note {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 260px;
+      line-height: 1.4;
+    }
+
+    /* Увага */
+    .warning {
+      margin-top: 16px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(248, 113, 113, 0.75);
+      background:
+        linear-gradient(135deg, rgba(127, 29, 29, 0.95), rgba(24, 24, 27, 0.96));
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .warning span.label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 11px;
+      margin-bottom: 3px;
+      color: #fecaca;
+    }
+
+    .warning span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f97373;
+      box-shadow: 0 0 14px rgba(248, 113, 113, 0.95);
+    }
+
+    .warning strong {
+      color: #fee2e2;
+    }
+
+    .warning a {
+      color: #fee2e2;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+
+    /* Віджет */
+    .widget-title {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(209, 213, 219, 0.85);
+      margin-bottom: 8px;
+    }
+
+    .widget-frame-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background-color: #020617;
+    }
+
+    .widget-frame {
+      border: 0;
+      width: 100%;
+      height: 280px;
+    }
+
+    /* Секції */
+    section {
+      margin-top: 26px;
+    }
+
+    section h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    section p {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Стіна героїв */
+    .heroes-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 12px;
+    }
+
+    #heroes-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    #heroes-list li {
+      padding: 6px 11px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 13px;
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .heroes-hint {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .heroes-hint code {
+      font-size: 11px;
+      background: rgba(15, 23, 42, 0.95);
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    /* Хештег */
+    .hashtag-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+      box-shadow: var(--shadow-soft);
+      margin-top: 4px;
+    }
+
+    .hashtag {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .copy-btn {
+      border-radius: var(--radius-full);
+      border: 0;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn:hover {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .copy-btn span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.85);
+    }
+
+    .copy-status {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      min-height: 14px;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 12px 16px 18px;
+      font-size: 11px;
+      color: rgba(156, 163, 175, 0.9);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="top-row">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Збір на розвідку для ЗСУ</span>
+          <span class="mini-flag">
+            <span class="top"></span>
+            <span class="bottom"></span>
+          </span>
+        </div>
+      </div>
+
+      <h1>
+        <span class="accent">1kmavic</span> — 1000 Mavic 4 Pro для ЗСУ
+      </h1>
+      <p class="subtitle">
+        Ціль — зібрати на <strong>1000 дронів Mavic 4 Pro</strong> для наших захисників.
+        Один дрон коштує <strong>98&nbsp;199&nbsp;₴</strong>. Кожен донат — це очі для наших воїнів.
+      </p>
+    </header>
+
+    <main>
+      <div class="hero-grid">
+        <!-- Ліва карта: донат + увага -->
+        <div class="card">
+          <div class="card-inner">
+            <div class="card-title">Мета збору</div>
+
+            <div class="stats-row">
+              <div class="chip">
+                <span class="chip-strong">1000</span>
+                <span class="chip-label">Mavic 4 Pro</span>
+              </div>
+              <div class="chip">
+                <span class="chip-strong">98&nbsp;199&nbsp;₴</span>
+                <span class="chip-label">за 1 дрон</span>
+              </div>
+            </div>
+
+            <div class="donate-actions">
+              <a
+                class="donate-button"
+                href="https://send.monobank.ua/jar/4TvvbXkxfo"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>Задонатити через Monobank</span>
+              </a>
+              <div class="donate-note">
+                Перекази за посиланням йдуть у банку для закупівлі Mavic 4 Pro для підрозділів ЗСУ.
+              </div>
+            </div>
+
+            <div class="warning">
+              <span class="label">
+                <span class="dot"></span>
+                УВАГА
+              </span>
+              Якщо ви хочете бути на <strong>Стіні героїв</strong>, задонатьте з коментарем:
+              <strong>ваше імʼя або нік</strong>.<br />
+              Посилання на банку:
+              <strong>
+                <a href="https://send.monobank.ua/jar/4TvvbXkxfo" target="_blank" rel="noopener noreferrer">
+                  monobank jar
+                </a>
+              </strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Права карта: віджет -->
+        <div class="card-soft">
+          <div class="widget-title">Скільки ми вже зібрали</div>
+          <div class="widget-frame-wrap">
+            <iframe
+              class="widget-frame"
+              src="https://send.monobank.ua/widget.html?jar=3GR2sJa22tvL1ed7kCVeb2uZHxPT1kRi&sendId=4TvvbXkxfo&type=lhp&textScheme=black&colorScheme=ukraine&shapeScheme=parallelogram&progressScheme=normal"
+              title="Віджет збору 1kmavic"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Стіна героїв -->
+      <section>
+        <h2>Стіна героїв</h2>
+        <p>
+          Тут зʼявляються люди, які підтримали збір. Щоб потрапити сюди — задонатьте з коментарем вашого
+          <strong>ніка</strong> або <strong>імені</strong>.
+        </p>
+
+        <div class="heroes-card">
+          <ul id="heroes-list"></ul>
+          <div class="heroes-hint">
+            Щоб додати нові імена, відкрийте файл та змініть масив <code>heroes</code> у коді:
+            можна додавати, видаляти, редагувати нікнейми як завгодно.
+          </div>
+        </div>
+      </section>
+
+      <!-- Хештег -->
+      <section>
+        <h2>Створюйте відео з хештегом</h2>
+        <p>
+          Записуйте ролики, розповідайте про збір та додавайте хештег, щоб ініціативу побачило якомога більше людей.
+        </p>
+
+        <div class="hashtag-row">
+          <span class="hashtag">#1kmavic</span>
+          <button type="button" class="copy-btn" id="copy-hashtag">
+            <span class="dot"></span>
+            Скопіювати хештег
+          </button>
+        </div>
+        <div class="copy-status" id="copy-status"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    1kmavic — народний збір на Mavic 4 Pro для ЗСУ. Діліться посиланням, знімайте відео з хештегом #1kmavic, донатьте —
+    разом наближаємо перемогу.
+  </footer>
+
+  <script>
+    /*
+      ─────────────────────────────
+       СТІНА ГЕРОЇВ — РЕДАГУЄШ КОД
+      ─────────────────────────────
+      Просто змінюй масив heroes нижче.
+
+      Приклад:
+      const heroes = [
+        "ТвійНік",
+        "Друг_ЗСУ",
+        "Хтось_з_чату"
+      ];
+    */
+
+    const heroes = [
+      "ПрикладНік_1",
+      "ПрикладНік_2",
+      "ПрикладНік_3"
+      // ДОДАВАЙ СЮДИ НОВІ НІКИ ТА ІМЕНА
+      // "NewHero_1",
+      // "Нік_з_донату",
+    ];
+
+    function renderHeroes() {
+      const ul = document.getElementById("heroes-list");
+      ul.innerHTML = "";
+      heroes.forEach((name) => {
+        const li = document.createElement("li");
+        li.textContent = name;
+        ul.appendChild(li);
+      });
+    }
+
+    renderHeroes();
+
+    // Копіювання хештегу
+    const copyBtn = document.getElementById("copy-hashtag");
+    const copyStatus = document.getElementById("copy-status");
+    const hashtagText = "#1kmavic";
+
+    function setCopyStatus(text) {
+      copyStatus.textContent = text;
+      if (!text) return;
+      setTimeout(() => {
+        copyStatus.textContent = "";
+      }, 2500);
+    }
+
+    copyBtn.addEventListener("click", async () => {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(hashtagText);
+          setCopyStatus("Хештег скопійовано. Вставляй у відео або пост ❤️");
+        } else {
+          // Фолбек
+          const tempInput = document.createElement("input");
+          tempInput.value = hashtagText;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempInput);
+          setCopyStatus("Спробували скопіювати хештег. Якщо що — просто випиши #1kmavic вручну.");
+        }
+      } catch (e) {
+        setCopyStatus("Не вдалося скопіювати. Впиши хештег вручну: #1kmavic");
+      }
+    });
+  </script>
+</body>
+</html>
